@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { RoutesNotLoggedIn, RoutesLoggedIn } from './routes'
+
+import Sidebar from './components/sidebar'
+import Headbar from './components/headbar'
+
+import './App.css'
 
 function App() {
+  const login = localStorage.getItem("isLoggedIn")
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        login ? (
+          <div className="template-div h-100 bg-white shadow">
+            <Sidebar />
+            <div className="main bg-white h-100">
+              <Headbar />
+                <div className="h-100 pb-3">
+                  <RoutesLoggedIn />
+                </div>
+            </div>
+          </div>
+        ) : <RoutesNotLoggedIn />
+      }
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

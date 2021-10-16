@@ -1,0 +1,24 @@
+.users-section {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.btn-add-user {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  margin-right: 1.25rem;
+}
+
+.icon-btn-add {
+  margin-right: 0.75rem;
+}
+
+.table-action {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.btn-action {
+  margin-right: 1rem;
+}

@@ -1,0 +1,16 @@
+.navbar {
+  border-radius: 0 8px 0 0;
+}
+
+.navbar-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end !important;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.dropdown-div {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+}

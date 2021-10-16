@@ -1,0 +1,27 @@
+.login-box {
+  width: 400px;
+  border-radius: 8px;
+  padding: 3rem;
+}
+
+.login-title {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+}
+
+.button {
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  background-color: #031563;
+}
+
+.button:hover {
+  opacity: 0.9;
+  background-color: #031563;
+}
