@@ -58,6 +58,25 @@ const Add = (props) => {
                 onChange={props.onChangeAddHandler}
               />
             </FormGroup>
+            <FormGroup>
+              <Label for="location">Location</Label>
+              <Input
+                id="location"
+                name="location"
+                value={props.newData.location}
+                onChange={props.onChangeAddHandler}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="price">Price</Label>
+              <Input
+                id="price"
+                name="price"
+                type="number"
+                value={props.newData.price}
+                onChange={props.onChangeAddHandler}
+              />
+            </FormGroup>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" type="submit">

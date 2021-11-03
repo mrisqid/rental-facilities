@@ -1,0 +1,26 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  font-family: 'Open Sans', sans-serif;
+  border: none;
+}
+
+.author {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.nim {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.prodi {
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: none;
+}

@@ -23,6 +23,8 @@ const FacilityTable = ({ data, deleteData, editFacility }) => {
           <th>Name</th>
           <th>Type</th>
           <th>Image</th>
+          <th>Location</th>
+          <th>Price</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -35,6 +37,8 @@ const FacilityTable = ({ data, deleteData, editFacility }) => {
                 <td>{facility.name}</td>
                 <td>{facility.type}</td>
                 <td>{facility.image}</td>
+                <td>{facility.location}</td>
+                <td>{facility.price}</td>
                 <td>
                   <div className="table-action">
                     <Button
@@ -46,6 +50,8 @@ const FacilityTable = ({ data, deleteData, editFacility }) => {
                         facility.name,
                         facility.type,
                         facility.image,
+                        facility.location,
+                        facility.price,
                       )}
                     >
                       Edit
@@ -77,11 +83,15 @@ const Facilities = () => {
     name: '',
     type: '',
     image: '',
+    location: '',
+    price: '',
   })
   const [editList, setEditList] = useState({
     name: '',
     type: '',
     image: '',
+    location: '',
+    price: '',
   })
 
   const getList = () => {
@@ -125,6 +135,8 @@ const Facilities = () => {
     data.append("name", newList.name)
     data.append("type", newList.type)
     data.append("image", newList.image)
+    data.append("location", newList.location)
+    data.append("price", newList.price)
     axios.post('http://localhost:8000/api/facility/create', data)
       .then(() => {
         setopenAddModal(false)
@@ -132,6 +144,8 @@ const Facilities = () => {
           name: '',
           type: '',
           image: '',
+          location: '',
+          price: '',
         })
         document.querySelector("#addFacility").reset()
         getList()
@@ -156,6 +170,8 @@ const Facilities = () => {
     data.append("name", editList.name)
     data.append("type", editList.type)
     data.append("image", editList.image)
+    data.append("location", editList.location)
+    data.append("price", editList.price)
     setIsLoading(true)
     axios.post('http://localhost:8000/api/facility/edit/' + id, data)
       .then(() => {
@@ -164,7 +180,9 @@ const Facilities = () => {
         setEditList({
           name: '',
           type: '',
-          image: ''
+          image: '',
+          location: '',
+          price: '',
         })
         document.querySelector("#editFacility").reset()
         setIsLoading(false)
@@ -175,8 +193,8 @@ const Facilities = () => {
       })
   }
 
-  const editFacility = useCallback((id, name, type, image) => {
-    setEditList({ id, name, type, image })
+  const editFacility = useCallback((id, name, type, image, location, price) => {
+    setEditList({ id, name, type, image, location, price })
     setopenEditModal(!openEditModal)
   }, [openEditModal])
 

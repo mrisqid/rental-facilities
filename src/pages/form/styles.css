@@ -1,0 +1,24 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+}
+
+.container {
+  min-height: 800px;
+  margin: 3rem 0;
+  border-radius: 8px;
+}
+
+.facility-title {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.facility-type {
+  margin-left: 1rem;
+}
+
+.facility-map {
+  margin-left: 1rem;
+}

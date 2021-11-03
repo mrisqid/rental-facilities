@@ -1,0 +1,57 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.home {
+  min-height: 800px;
+  margin: 3rem 0;
+  border-radius: 8px;
+}
+
+.title {
+  text-align: center;
+  margin-top: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid gray;
+}
+
+h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.facility-box {
+  min-height: 300px;
+  width: 300px;
+}
+
+.facility-box:hover {
+  cursor: pointer;
+  border: 1px solid lightskyblue;
+}
+
+.facility-name {
+  font-size: 1.25rem;
+}
+
+.facility-location {
+  font-size: 1rem;
+}
+
+.icon-location {
+  margin-right: 0.5rem;
+}
+
+.facility-price {
+  font-size: 0.825rem;
+}
+
+.price-box {
+  border-top: 1px solid gray;
+  background: aliceblue;
+}
+
+.facility-img {
+  border-radius: 6px;
+}

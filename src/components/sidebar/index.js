@@ -24,13 +24,13 @@ const Sidebar = () => {
       </div>
       <div className="h-100">
         <ListGroup flush>
-          <ListGroupItem className="list-item" color="primary" tag="a" href="#" action>
+          <ListGroupItem className="list-item" color="primary" tag="a" href="/" action>
             <div className="d-flex list-item-icon">
               <FontAwesomeIcon icon={faHome} />
             </div>
             Dashboard
           </ListGroupItem>
-          <ListGroupItem className="list-item" color="primary" tag="a" href="#" action>
+          <ListGroupItem className="list-item" color="primary" tag="a" href="/rental" action>
             <div className="d-flex list-item-icon">
               <FontAwesomeIcon icon={faFileInvoice} />
             </div>

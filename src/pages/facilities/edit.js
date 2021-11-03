@@ -37,7 +37,7 @@ const Edit = (props) => {
                 id="type"
                 name="type"
                 value={props.editData.type}
-                onChange={props.onChangeEditHanler}
+                onChange={props.onChangeEditHandler}
               />
             </FormGroup>
             <FormGroup className="mt-3">
@@ -45,6 +45,25 @@ const Edit = (props) => {
                 id="image"
                 type="file"
                 name="image"
+                onChange={props.onChangeEditHandler}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="location">Location</Label>
+              <Input
+                id="location"
+                name="location"
+                value={props.editData.location}
+                onChange={props.onChangeEditHandler}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="price">Price</Label>
+              <Input
+                id="price"
+                name="price"
+                type="number"
+                value={props.editData.price}
                 onChange={props.onChangeEditHandler}
               />
             </FormGroup>
