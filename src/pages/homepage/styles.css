@@ -2,15 +2,8 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.home {
-  min-height: 800px;
-  margin: 3rem 0;
-  border-radius: 8px;
-}
-
-.title {
+.homepage-title {
   text-align: center;
-  margin-top: 3rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid gray;
 }

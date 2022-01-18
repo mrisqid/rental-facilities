@@ -21,6 +21,8 @@ import './styles.css'
 const Form = () => {
   const route = useHistory()
   const { id } = useParams()
+  const userData = JSON.parse(window.localStorage.getItem('userData'))
+  const userId = userData?.id
   const [dataPost, setDataPost] = useState({
     name: '',
     identity_card: '',
@@ -33,6 +35,7 @@ const Form = () => {
     date_start: '',
     date_end: '',
     file: '',
+    user_id: userId,
   })
   const [facility, setFacility] = useState([])
 
@@ -60,8 +63,9 @@ const Form = () => {
       date_start: '',
       date_end: '',
       file: '',
+      user_id: userId,
     })
-  }, [id])
+  }, [id, userId])
 
   const post = useCallback((e) => {
     e.preventDefault()
@@ -77,6 +81,7 @@ const Form = () => {
     data.append("date_start", dataPost.date_start)
     data.append("date_end", dataPost.date_end)
     data.append("file", dataPost.file)
+    data.append("user_id", dataPost.user_id)
     axios.post('http://localhost:8000/api/rental/create', data)
       .then(() => {
         setDataPost({
@@ -91,10 +96,11 @@ const Form = () => {
           date_start: '',
           date_end: '',
           file: '',
+          user_id: userId,
         })
         document.querySelector("#addFormRental").reset()
       })
-  }, [dataPost, id])
+  }, [dataPost, id, userId])
 
   useEffect(() => {
     const getFacility = () => {
@@ -109,7 +115,7 @@ const Form = () => {
   }, [id])
 
   return (
-    <div className="container bg-white shadow d-flex flex-row justify-content-between p-5">
+    <div className="d-flex flex-row justify-content-between p-5">
       <div className="d-flex flex-column flex-grow-1">
         <div>
           <Button

@@ -26,8 +26,8 @@ const Homepage = () => {
   }, [])
 
   return (
-    <div className="home container bg-white shadow">
-      <div className="title">
+    <>
+      <div className="homepage-title">
         <h1 className="text-uppercase">
           selamat datang di sistem pengajuan rental fasilitas
           <br />
@@ -74,7 +74,7 @@ const Homepage = () => {
           }
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

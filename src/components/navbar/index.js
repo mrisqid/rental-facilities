@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   Navbar,
   NavbarBrand,
@@ -6,30 +8,55 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  NavItem,
+  NavLink,
 } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 import './styles.css'
 
-const Headbar = () => {
+const HomepageNavbar = () => {
+  const userData = JSON.parse(window.localStorage.getItem('userData'))
+  const username = userData?.username
+
   const onLogoutHandler = () => {
     localStorage.clear()
     window.location.reload()
   }
 
   return (
-    <Navbar className="navbar-admin shadow" color="light" light expand="md">
-      <div className="navbar-div">
-        <NavbarBrand>
-          <FontAwesomeIcon icon={faUser} />
+    <Navbar
+      color="dark"
+      expand="md"
+      fixed="top"
+      dark
+    >
+      <div className="container-lg">
+        <NavbarBrand href="/">
+          User Area
         </NavbarBrand>
+        <Nav
+          className="me-auto"
+          navbar
+        >
+          <NavItem>
+            <NavLink href="/">
+              Rental
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/riwayat-rental">
+              Riwayat
+            </NavLink>
+          </NavItem>
+        </Nav>
         <Nav navbar>
           <UncontrolledDropdown className="dropdown-div" nav inNavbar>
-            <DropdownToggle nav caret>
-              Admin
+            <DropdownToggle nav caret className="text-capitalize">
+              {username}
             </DropdownToggle>
-            <DropdownMenu right>
+            <DropdownMenu end>
               <DropdownItem>
                 Profile
               </DropdownItem>
@@ -45,4 +72,4 @@ const Headbar = () => {
   )
 }
 
-export default Headbar
+export default HomepageNavbar

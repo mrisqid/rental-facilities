@@ -74,6 +74,7 @@ const AdminUser = () => {
     username: '',
     email: '',
     password: '',
+    level: 'admin',
   })
   const [editList, setEditList] = useState({
     username: '',

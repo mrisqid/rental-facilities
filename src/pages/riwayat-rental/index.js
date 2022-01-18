@@ -29,6 +29,20 @@ const TableContent = ({ rental, index }) => {
     getFacilityName(facilityId)
   }, [facilityId])
 
+  const checkStatus = (status) => {
+    if (status === 1) return (
+      <span className="text-success">Telah Disetujui</span>
+    )
+    if (status === 2) return (
+      <span className="text-danger">Ditolak/Dibatalkan</span>
+    )
+    return (
+      <span className="text-warning">
+        Menunggu Persetujuan
+      </span>
+    )
+  }
+
   return (
     <tr>
       <th scope="row">{index + 1}</th>
@@ -36,6 +50,7 @@ const TableContent = ({ rental, index }) => {
       <td>{rental.organization_name}</td>
       <td>{facilityName}</td>
       <td>({moment(rental.date_start).format('D-MMM-YY')}) / ({moment(rental.date_end).format('D-MMM-YY')})</td>
+      <td>{checkStatus(rental.status)}</td>
       <td>
         <Button
           variant="primary"
@@ -60,6 +75,7 @@ const RentalTable = ({ data }) => {
           <th>Organization Name</th>
           <th>Facility</th>
           <th>Date</th>
+          <th>Status</th>
           <th>Detail</th>
         </tr>
       </thead>
@@ -80,44 +96,48 @@ const RentalTable = ({ data }) => {
   )
 }
 
-const Rental = () => {
+const RiwayatRental = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [list, setList] = useState([])
+  const userData = JSON.parse(window.localStorage.getItem('userData'))
+  const { id } = userData
   
   useEffect(() => {
     const getList = async () => {
-      await axios.get('http://localhost:8000/api/rental/list')
+      await axios.get('http://localhost:8000/api/rental/list/' + id)
         .then((response) => {
           setIsLoading(true)
           if (response.status === 200) {
-            setList(response.data.data ? response.data.data : [])
+            console.log(response)
+            setList(response.data ? response.data : [])
             setIsLoading(false)
           }
         })
     }
     getList()
-  }, [])
+  }, [id])
 
   return (
-    <div className="users-section mt-4 mx-3">
-      <Card className="overflow-auto">
-        <CardHeader>Rental List</CardHeader>
-        <CardBody className="px-4 pt-2">
-          {
-            isLoading ? (
-              <div className="spinner-border text-center" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-            ) : (
-              <RentalTable
-                data={list}
-              />
-            )
-          }
-        </CardBody>
-      </Card>
-    </div>
+    <>
+      <h1>Riwayat Rental</h1>
+      <div className="m-3">
+        <Card>
+          <CardHeader>List Rental</CardHeader>
+          <CardBody className="px-4 pt-2">
+            {
+              isLoading ? (
+                <div className="spinner-border text-center" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              ) : (
+                <RentalTable data={list} />
+              )
+            }
+          </CardBody>
+        </Card>
+      </div>
+    </>
   )
 }
 
-export default Rental
+export default RiwayatRental
