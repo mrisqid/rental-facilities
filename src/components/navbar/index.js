@@ -11,8 +11,6 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 import './styles.css'
 
@@ -57,10 +55,6 @@ const HomepageNavbar = () => {
               {username}
             </DropdownToggle>
             <DropdownMenu end>
-              <DropdownItem>
-                Profile
-              </DropdownItem>
-              <DropdownItem divider />
               <DropdownItem onClick={onLogoutHandler}>
                 Log out
               </DropdownItem>

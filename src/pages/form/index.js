@@ -10,6 +10,8 @@ import {
 } from "reactstrap"
 
 import Button from '../../components/button'
+import NotifSuccess from '../../components/notif-success'
+import NotifFail from '../../components/notif-fail'
 
 import {
   faArrowLeft,
@@ -50,22 +52,6 @@ const Form = () => {
       setDataPost({ ...dataPost, [e.target.name]: e.target.value })
     }
   }, [dataPost])
-  const clearAll = useCallback(() => {
-    setDataPost({
-      name: '',
-      identity_card: '',
-      phone_number: '',
-      organization_name: '',
-      organization_address: '',
-      organization_image: '',
-      facilities: id,
-      message: '',
-      date_start: '',
-      date_end: '',
-      file: '',
-      user_id: userId,
-    })
-  }, [id, userId])
 
   const post = useCallback((e) => {
     e.preventDefault()
@@ -83,7 +69,7 @@ const Form = () => {
     data.append("file", dataPost.file)
     data.append("user_id", dataPost.user_id)
     axios.post('http://localhost:8000/api/rental/create', data)
-      .then(() => {
+      .then((response) => {
         setDataPost({
           name: '',
           identity_card: '',
@@ -99,6 +85,13 @@ const Form = () => {
           user_id: userId,
         })
         document.querySelector("#addFormRental").reset()
+        if (response) {
+          if (response.data.status === 200) {
+            NotifSuccess('Your Rental', 'created successfull')
+          } else {
+            NotifFail()
+          }
+        }
       })
   }, [dataPost, id, userId])
 
@@ -110,6 +103,7 @@ const Form = () => {
             setFacility(response.data.data ? response.data.data : [])
           }
         })
+        .catch((error) => console.log(error))
     }
     getFacility()
   }, [id])
@@ -256,13 +250,9 @@ const Form = () => {
               onChange={onChange}
             />
           </FormGroup>
-          <div className="d-flex flex-row mt-4">
+          <div className="mt-4">
             <Button color="primary" type="submit">
               Submit
-            </Button>
-            <span style={{ marginLeft: '1rem' }}></span>
-            <Button color="danger" onClick={clearAll}>
-              Clear
             </Button>
           </div>
         </form>

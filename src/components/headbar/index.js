@@ -30,10 +30,6 @@ const Headbar = () => {
               Admin
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem>
-                Profile
-              </DropdownItem>
-              <DropdownItem divider />
               <DropdownItem onClick={onLogoutHandler}>
                 Log out
               </DropdownItem>

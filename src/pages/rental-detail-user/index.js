@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import {
   Card,
@@ -8,26 +8,28 @@ import {
   Button,
 } from 'reactstrap'
 
+import NotifSuccess from '../../components/notif-success'
+import NotifFail from '../../components/notif-fail'
 import moment from 'moment'
 import axios from 'axios'
 
 import './styles.css'
 
 const RentalDetail = () => {
-  const route = useHistory()
   const { id } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
   const [facilityName, setFacilityName] = useState('')
   const getData = useCallback(async () => {
+    setIsLoading(true)
     await axios.get(`http://localhost:8000/api/rental/get/${id}`)
     .then((response) => {
-      setIsLoading(true)
       if (response.status === 200) {
         setData(response.data ? response.data : null)
         setIsLoading(false)
       }
     })
+    .catch((error) => console.log(error))
   }, [id])
   
   useEffect(() => {
@@ -42,6 +44,7 @@ const RentalDetail = () => {
           setFacilityName(response.data.data ? response.data.data.name : '')
         }
       })
+      .catch((error) => console.log(error))
     }
     getFacilityName(data.facilities)
   }, [data, id])
@@ -55,13 +58,18 @@ const RentalDetail = () => {
   const updateStatus = useCallback(async (status) => {
     setIsLoading(true)
     await axios.post(`http://localhost:8000/api/rental/status/${id}`, { status })
-      .then(() => {
+      .then((response) => {
         getData()
+        if (response.data.status === 200) {
+          NotifSuccess('Your Rental', 'canceled')
+        } else {
+          NotifFail()
+        }
         setIsLoading(false)
       })
       .catch((error) => {
         setIsLoading(false)
-        console.log(error.response)
+        console.log(error)
       })
   }, [getData, id])
 

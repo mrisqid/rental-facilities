@@ -35,7 +35,7 @@ const Homepage = () => {
         </h1>
       </div>
       <div className="body mt-5">
-        <div className="mt-5 d-flex flex-row flex-wrap justify-content-between align-items-center">
+        <div className="mt-5 d-flex flex-row flex-wrap gap-3 align-items-center">
           {
             list.map(facility => {
               return (

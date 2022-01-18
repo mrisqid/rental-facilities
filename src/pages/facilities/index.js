@@ -9,6 +9,8 @@ import {
 import axios from 'axios'
 
 import Button from '../../components/button'
+import NotifSuccess from '../../components/notif-success'
+import NotifFail from '../../components/notif-fail'
 import Add from './add'
 import Edit from './edit'
 
@@ -95,12 +97,15 @@ const Facilities = () => {
   })
 
   const getList = () => {
+    setIsLoading(true)
     axios.get('http://localhost:8000/api/facility/list')
       .then((response) => {
         if (response.status === 200) {
           setList(response.data.data ? response.data.data : [])
+          setIsLoading(false)
         }
       })
+      .catch((error) => console.log(error))
   }
 
   useEffect(() => {
@@ -138,7 +143,7 @@ const Facilities = () => {
     data.append("location", newList.location)
     data.append("price", newList.price)
     axios.post('http://localhost:8000/api/facility/create', data)
-      .then(() => {
+      .then((response) => {
         setopenAddModal(false)
         setNewList({
           name: '',
@@ -149,18 +154,27 @@ const Facilities = () => {
         })
         document.querySelector("#addFacility").reset()
         getList()
+        if (response.data.status === 200) {
+          NotifSuccess('New Facility', 'created')
+        } else {
+          NotifFail()
+        }
       })
+      .catch((error) => console.log(error))
   }, [newList])
 
   const deleteData = (id) => {
-    setIsLoading(true)
     axios.delete('http://localhost:8000/api/facility/delete/' + id)
-      .then(() => {
-        setIsLoading(false)
+      .then((response) => {
         getList()
+        if (response.data.status === 200) {
+          NotifSuccess('Facility', 'deleted')
+        } else {
+          NotifFail()
+        }
       })
-      .catch(() => {
-        setIsLoading(false)
+      .catch((error) => {
+        console.log(error)
       })
   }
 
@@ -172,9 +186,8 @@ const Facilities = () => {
     data.append("image", editList.image)
     data.append("location", editList.location)
     data.append("price", editList.price)
-    setIsLoading(true)
     axios.post('http://localhost:8000/api/facility/edit/' + id, data)
-      .then(() => {
+      .then((response) => {
         getList()
         setopenEditModal(false)
         setEditList({
@@ -185,11 +198,14 @@ const Facilities = () => {
           price: '',
         })
         document.querySelector("#editFacility").reset()
-        setIsLoading(false)
+        if (response.data.status === 200) {
+          NotifSuccess('Facility', 'updated')
+        } else {
+          NotifFail()
+        }
       })
       .catch((error) => {
-        setIsLoading(false)
-        console.log(error.response)
+        console.log(error)
       })
   }
 

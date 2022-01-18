@@ -9,6 +9,8 @@ import {
 import axios from 'axios'
 
 import Button from '../../components/button'
+import NotifSuccess from '../../components/notif-success'
+import NotifFail from '../../components/notif-fail'
 import Add from './add'
 import Edit from './edit'
 
@@ -82,11 +84,16 @@ const AdminUser = () => {
   })
 
   const getList = () => {
+    setIsLoading(true)
     axios.get('http://localhost:8000/api/user/list')
       .then((response) => {
         if (response.status === 200) {
           setList(response.data.data ? response.data.data : [])
+          setIsLoading(false)
         }
+      })
+      .catch((error) => {
+        console.log(error)
       })
   }
 
@@ -110,7 +117,7 @@ const AdminUser = () => {
 
   const addUser = useCallback(() => {
     axios.post('http://localhost:8000/api/user/create', newList)
-      .then(() => {
+      .then((response) => {
         setopenAddModal(false)
         setNewList({
           username: '',
@@ -118,25 +125,35 @@ const AdminUser = () => {
           password: '',
         })
         getList()
+        if (response.data.status === 200) {
+          NotifSuccess('New User', 'created')
+        } else {
+          NotifFail()
+        }
+      })
+      .catch((error) => {
+        console.log(error)
       })
   }, [newList])
 
   const deleteUser = (id) => {
-    setIsLoading(true)
     axios.delete('http://localhost:8000/api/user/delete/' + id)
-      .then(() => {
-        setIsLoading(false)
+      .then((response) => {
         getList()
+        if (response.data.status === 200) {
+          NotifSuccess('User', 'deleted')
+        } else {
+          NotifFail()
+        }
       })
-      .catch(() => {
-        setIsLoading(false)
+      .catch((error) => {
+        console.log(error)
       })
   }
 
   const updateUser = (id) => {
-    setIsLoading(true)
     axios.post('http://localhost:8000/api/user/edit/' + id, editList)
-      .then(() => {
+      .then((response) => {
         getList()
         setopenEditModal(false)
         setEditList({
@@ -144,11 +161,15 @@ const AdminUser = () => {
           username: '',
           email: ''
         })
-        setIsLoading(false)
+        console.log(response)
+        if (response.data.status === 200) {
+          NotifSuccess('User', 'updated')
+        } else {
+          NotifFail()
+        }
       })
       .catch((error) => {
-        setIsLoading(false)
-        console.log(error.response)
+        console.log(error)
       })
   }
 

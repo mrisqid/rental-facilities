@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import {
   Card,
@@ -11,27 +11,30 @@ import {
   Label,
 } from 'reactstrap'
 
+import NotifSuccess from '../../components/notif-success'
+import NotifFail from '../../components/notif-fail'
+
 import moment from 'moment'
 import axios from 'axios'
 
 import './styles.css'
 
 const RentalDetailAdmin = () => {
-  const route = useHistory()
   const { id } = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
   const [facilityName, setFacilityName] = useState('')
   const [uploadFile, setUploadFile] = useState('')
   const getData = useCallback(async () => {
+    setIsLoading(true)
     await axios.get(`http://localhost:8000/api/rental/get/${id}`)
     .then((response) => {
-      setIsLoading(true)
       if (response.status === 200) {
         setData(response.data ? response.data : null)
         setIsLoading(false)
       }
     })
+    .catch((error) => console.log(error))
   }, [id])
 
   useEffect(() => {
@@ -40,12 +43,15 @@ const RentalDetailAdmin = () => {
 
   useEffect(() => {
     const getFacilityName = async (id) => {
+      setIsLoading(true)
       await axios.get(`http://localhost:8000/api/facility/get/${id}`)
       .then((response) => {
         if (response.status === 200) {
           setFacilityName(response.data.data ? response.data.data.name : '')
+          setIsLoading(false)
         }
       })
+      .catch((error) => console.log(error))
     }
     getFacilityName(data.facilities)
   }, [data, id])
@@ -57,15 +63,17 @@ const RentalDetailAdmin = () => {
   }, [data])
 
   const updateStatus = useCallback(async (status) => {
-    setIsLoading(true)
     await axios.post(`http://localhost:8000/api/rental/status/${id}`, { status })
-      .then(() => {
+      .then((response) => {
         getData()
-        setIsLoading(false)
+        if (response.data.status === 200) {
+          NotifSuccess('Rental Status', 'updated')
+        } else {
+          NotifFail()
+        }
       })
       .catch((error) => {
-        setIsLoading(false)
-        console.log(error.response)
+        console.log(error)
       })
   }, [getData, id])
 
@@ -77,13 +85,17 @@ const RentalDetailAdmin = () => {
     e.preventDefault()
     const data = new FormData()
     data.append("file_approve", uploadFile)
-    setIsLoading(true)
     await axios.post(`http://localhost:8000/api/rental/approve/${id}`, data)
-      .then(() => {
+      .then((response) => {
         setUploadFile('')
-        setIsLoading(false)
         document.querySelector("#uploadFileApprove").reset()
+        if (response.data.status === 200) {
+          NotifSuccess('Upload File', 'successfull')
+        } else {
+          NotifFail()
+        }
       })
+      .catch((error) => console.log(error))
   }, [id, uploadFile])
 
   return (
