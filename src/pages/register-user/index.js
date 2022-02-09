@@ -35,7 +35,7 @@ const Register = () => {
     setIsLoading(true)
     try {
       await axios
-        .post('http://localhost:8000/api/user/create', account)
+        .post(`${process.env.REACT_APP_DB}/api/user/create`, account)
         .then((response) => {
           setIsLoading(false)
           if (response.data.status === 200) {

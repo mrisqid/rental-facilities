@@ -32,7 +32,7 @@ const Login = () => {
     setIsLoading(true)
     try {
       await axios
-        .post('http://localhost:8000/api/user/login', account)
+        .post(`${process.env.REACT_APP_DB}/api/user/login`, account)
         .then((response) => {
           setIsLoading(false)
           if (response.data.status === 200) {

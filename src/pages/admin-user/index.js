@@ -85,7 +85,7 @@ const AdminUser = () => {
 
   const getList = () => {
     setIsLoading(true)
-    axios.get('http://localhost:8000/api/user/list')
+    axios.get(`${process.env.REACT_APP_DB}/api/user/list`)
       .then((response) => {
         if (response.status === 200) {
           setList(response.data.data ? response.data.data : [])
@@ -116,7 +116,7 @@ const AdminUser = () => {
   }, [editList])
 
   const addUser = useCallback(() => {
-    axios.post('http://localhost:8000/api/user/create', newList)
+    axios.post(`${process.env.REACT_APP_DB}/api/user/create`, newList)
       .then((response) => {
         setopenAddModal(false)
         setNewList({
@@ -137,7 +137,7 @@ const AdminUser = () => {
   }, [newList])
 
   const deleteUser = (id) => {
-    axios.delete('http://localhost:8000/api/user/delete/' + id)
+    axios.delete(`${process.env.REACT_APP_DB}/api/user/delete/` + id)
       .then((response) => {
         getList()
         if (response.data.status === 200) {
@@ -152,7 +152,7 @@ const AdminUser = () => {
   }
 
   const updateUser = (id) => {
-    axios.post('http://localhost:8000/api/user/edit/' + id, editList)
+    axios.post(`${process.env.REACT_APP_DB}/api/user/edit/` + id, editList)
       .then((response) => {
         getList()
         setopenEditModal(false)

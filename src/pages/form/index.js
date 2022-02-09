@@ -68,7 +68,7 @@ const Form = () => {
     data.append("date_end", dataPost.date_end)
     data.append("file", dataPost.file)
     data.append("user_id", dataPost.user_id)
-    axios.post('http://localhost:8000/api/rental/create', data)
+    axios.post(`${process.env.REACT_APP_DB}/api/rental/create`, data)
       .then((response) => {
         setDataPost({
           name: '',
@@ -97,7 +97,7 @@ const Form = () => {
 
   useEffect(() => {
     const getFacility = () => {
-      axios.get(`http://localhost:8000/api/facility/get/${id}`)
+      axios.get(`${process.env.REACT_APP_DB}/api/facility/get/${id}`)
         .then((response) => {
           if (response.status === 200) {
             setFacility(response.data.data ? response.data.data : [])

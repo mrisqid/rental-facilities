@@ -22,7 +22,7 @@ const RentalDetail = () => {
   const [facilityName, setFacilityName] = useState('')
   const getData = useCallback(async () => {
     setIsLoading(true)
-    await axios.get(`http://localhost:8000/api/rental/get/${id}`)
+    await axios.get(`${process.env.REACT_APP_DB}/api/rental/get/${id}`)
     .then((response) => {
       if (response.status === 200) {
         setData(response.data ? response.data : null)
@@ -38,7 +38,7 @@ const RentalDetail = () => {
 
   useEffect(() => {
     const getFacilityName = async (id) => {
-      await axios.get(`http://localhost:8000/api/facility/get/${id}`)
+      await axios.get(`${process.env.REACT_APP_DB}/api/facility/get/${id}`)
       .then((response) => {
         if (response.status === 200) {
           setFacilityName(response.data.data ? response.data.data.name : '')
@@ -57,7 +57,7 @@ const RentalDetail = () => {
 
   const updateStatus = useCallback(async (status) => {
     setIsLoading(true)
-    await axios.post(`http://localhost:8000/api/rental/status/${id}`, { status })
+    await axios.post(`${process.env.REACT_APP_DB}/api/rental/status/${id}`, { status })
       .then((response) => {
         getData()
         if (response.data.status === 200) {
@@ -91,7 +91,7 @@ const RentalDetail = () => {
                   </div>
                   <div>
                     <img
-                      src={"http://localhost:8000/uploads/identity-card/" + data?.identity_card}
+                      src={`${process.env.REACT_APP_DB}/uploads/identity-card/` + data?.identity_card}
                       alt={data?.name}
                       width="200"
                       height="200"
@@ -121,7 +121,7 @@ const RentalDetail = () => {
                         <Button
                           type="button"
                           size="sm"
-                          href={"http://localhost:8000/uploads/file-approve/" + data?.file_approve}
+                          href={`${process.env.REACT_APP_DB}/uploads/file-approve/` + data?.file_approve}
                           target="_blank"
                         >
                           Donwload Berkas Persetujuan
@@ -157,7 +157,7 @@ const RentalDetail = () => {
                         <Button
                           type="button"
                           size="sm"
-                          href={"http://localhost:8000/uploads/organization-image/" + data?.organization_image}
+                          href={`${process.env.REACT_APP_DB}/uploads/organization-image/` + data?.organization_image}
                           target="_blank"
                         >
                           Foto Organisasi
@@ -167,7 +167,7 @@ const RentalDetail = () => {
                     <Button
                       type="button"
                       size="sm"
-                      href={"http://localhost:8000/uploads/rental-file/" + data?.file}
+                      href={`${process.env.REACT_APP_DB}/uploads/rental-file/` + data?.file}
                       target="_blank"
                     >
                       Berkas

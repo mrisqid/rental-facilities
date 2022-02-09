@@ -6,6 +6,8 @@ import Navbar from './components/navbar'
 
 import './App.css'
 
+require('dotenv').config()
+
 function App() {
   const login = localStorage.getItem("isLoggedIn")
   const userData = JSON.parse(localStorage.getItem('userData'))

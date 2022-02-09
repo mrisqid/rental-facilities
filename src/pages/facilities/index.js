@@ -98,7 +98,7 @@ const Facilities = () => {
 
   const getList = () => {
     setIsLoading(true)
-    axios.get('http://localhost:8000/api/facility/list')
+    axios.get(`${process.env.REACT_APP_DB}/api/facility/list`)
       .then((response) => {
         if (response.status === 200) {
           setList(response.data.data ? response.data.data : [])
@@ -142,7 +142,7 @@ const Facilities = () => {
     data.append("image", newList.image)
     data.append("location", newList.location)
     data.append("price", newList.price)
-    axios.post('http://localhost:8000/api/facility/create', data)
+    axios.post(`${process.env.REACT_APP_DB}/api/facility/create`, data)
       .then((response) => {
         setopenAddModal(false)
         setNewList({
@@ -164,7 +164,7 @@ const Facilities = () => {
   }, [newList])
 
   const deleteData = (id) => {
-    axios.delete('http://localhost:8000/api/facility/delete/' + id)
+    axios.delete(`${process.env.REACT_APP_DB}/api/facility/delete/` + id)
       .then((response) => {
         getList()
         if (response.data.status === 200) {
@@ -186,7 +186,7 @@ const Facilities = () => {
     data.append("image", editList.image)
     data.append("location", editList.location)
     data.append("price", editList.price)
-    axios.post('http://localhost:8000/api/facility/edit/' + id, data)
+    axios.post(`${process.env.REACT_APP_DB}/api/facility/edit/` + id, data)
       .then((response) => {
         getList()
         setopenEditModal(false)

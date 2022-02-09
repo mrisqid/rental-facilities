@@ -15,7 +15,7 @@ const Homepage = () => {
 
   useEffect(() => {
     const getList = () => {
-      axios.get('http://localhost:8000/api/facility/list')
+      axios.get(`${process.env.REACT_APP_DB}/api/facility/list`)
         .then((response) => {
           if (response.status === 200) {
             setList(response.data.data ? response.data.data : [])

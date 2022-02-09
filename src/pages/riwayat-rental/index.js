@@ -19,7 +19,7 @@ const TableContent = ({ rental, index }) => {
   
   useEffect(() => {
     const getFacilityName = async (id) => {
-      await axios.get(`http://localhost:8000/api/facility/get/${id}`)
+      await axios.get(`${process.env.REACT_APP_DB}/api/facility/get/${id}`)
       .then((response) => {
         if (response.status === 200) {
           setFacilityName(response.data.data ? response.data.data.name : '')
@@ -104,7 +104,7 @@ const RiwayatRental = () => {
   
   useEffect(() => {
     const getList = async () => {
-      await axios.get('http://localhost:8000/api/rental/list/' + id)
+      await axios.get(`${process.env.REACT_APP_DB}/api/rental/list/` + id)
         .then((response) => {
           setIsLoading(true)
           if (response.status === 200) {

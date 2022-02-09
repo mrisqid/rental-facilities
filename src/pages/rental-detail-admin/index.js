@@ -27,7 +27,7 @@ const RentalDetailAdmin = () => {
   const [uploadFile, setUploadFile] = useState('')
   const getData = useCallback(async () => {
     setIsLoading(true)
-    await axios.get(`http://localhost:8000/api/rental/get/${id}`)
+    await axios.get(`${process.env.REACT_APP_DB}/api/rental/get/${id}`)
     .then((response) => {
       if (response.status === 200) {
         setData(response.data ? response.data : null)
@@ -44,7 +44,7 @@ const RentalDetailAdmin = () => {
   useEffect(() => {
     const getFacilityName = async (id) => {
       setIsLoading(true)
-      await axios.get(`http://localhost:8000/api/facility/get/${id}`)
+      await axios.get(`${process.env.REACT_APP_DB}/api/facility/get/${id}`)
       .then((response) => {
         if (response.status === 200) {
           setFacilityName(response.data.data ? response.data.data.name : '')
@@ -63,7 +63,7 @@ const RentalDetailAdmin = () => {
   }, [data])
 
   const updateStatus = useCallback(async (status) => {
-    await axios.post(`http://localhost:8000/api/rental/status/${id}`, { status })
+    await axios.post(`${process.env.REACT_APP_DB}/api/rental/status/${id}`, { status })
       .then((response) => {
         getData()
         if (response.data.status === 200) {
@@ -85,7 +85,7 @@ const RentalDetailAdmin = () => {
     e.preventDefault()
     const data = new FormData()
     data.append("file_approve", uploadFile)
-    await axios.post(`http://localhost:8000/api/rental/approve/${id}`, data)
+    await axios.post(`${process.env.REACT_APP_DB}/api/rental/approve/${id}`, data)
       .then((response) => {
         setUploadFile('')
         document.querySelector("#uploadFileApprove").reset()
@@ -116,7 +116,7 @@ const RentalDetailAdmin = () => {
                   </div>
                   <div>
                     <img
-                      src={"http://localhost:8000/uploads/identity-card/" + data?.identity_card}
+                      src={`${process.env.REACT_APP_DB}/uploads/identity-card/` + data?.identity_card}
                       alt={data?.name}
                       width="200"
                       height="200"
@@ -200,7 +200,7 @@ const RentalDetailAdmin = () => {
                         <Button
                           type="button"
                           size="sm"
-                          href={"http://localhost:8000/uploads/organization-image/" + data?.organization_image}
+                          href={`${process.env.REACT_APP_DB}/uploads/organization-image/` + data?.organization_image}
                           target="_blank"
                         >
                           Foto Organisasi
@@ -210,7 +210,7 @@ const RentalDetailAdmin = () => {
                     <Button
                       type="button"
                       size="sm"
-                      href={"http://localhost:8000/uploads/rental-file/" + data?.file}
+                      href={`${process.env.REACT_APP_DB}/uploads/rental-file/` + data?.file}
                       target="_blank"
                     >
                       Berkas
