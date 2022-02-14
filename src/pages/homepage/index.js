@@ -46,7 +46,7 @@ const Homepage = () => {
                 >
                   <div className="mb-2">
                     <img
-                      src={"http://localhost:8000/uploads/" + facility.image}
+                      src={`${process.env.REACT_APP_DB}/uploads/${facility.image}`}
                       alt={facility.name}
                       width="250"
                       height="200"
