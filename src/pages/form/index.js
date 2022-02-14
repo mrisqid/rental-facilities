@@ -124,7 +124,7 @@ const Form = () => {
         </div>
         <div className="mt-5">
           <img
-            src={`${process.env.REACT_APP_DB}/uploads/${facility.image}`}
+            src={`${process.env.REACT_APP_DB}/uploads/facility/${facility.image}`}
             alt={facility.name}
             width="500"
             height="400"
