@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <div className="w-100 d-flex flex-column justify-content-center align-items-center text-center">
       <h1 className="title mt-5">
-        Selamat Datang di Admin Panel Sistem Pengajuan Rental Fasilitas
+        Perancangan Aplikasi Peminjaman Sarana dan Prasarana
         <br />
         IAIN Bukittinggi
       </h1>

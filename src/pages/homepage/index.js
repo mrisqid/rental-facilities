@@ -29,7 +29,7 @@ const Homepage = () => {
     <>
       <div className="homepage-title">
         <h1 className="text-uppercase">
-          selamat datang di sistem pengajuan rental fasilitas
+          Perancangan Aplikasi Peminjaman Sarana dan Prasarana
           <br />
           IAIN Bukittinggi
         </h1>
